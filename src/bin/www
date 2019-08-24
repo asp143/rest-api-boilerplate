@@ -7,7 +7,6 @@
  * Module dependencies.
  */
 
-const debug = require('debug')('cryptoassets-backend:server');
 const http = require('http');
 const app = require('../app');
 
@@ -91,6 +90,5 @@ function onListening() {
     const bind = typeof addr === 'string'
         ? `pipe ${addr}`
         : `port ${addr.port}`;
-    debug(`Listening on ${bind}`);
     console.log(`Listening on${bind}`);
 }

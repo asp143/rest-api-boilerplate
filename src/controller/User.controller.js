@@ -1,6 +1,6 @@
 const Rx = require('rxjs');
 const { flatMap, takeWhile } = require('rxjs/operators');
-const UserDb = require('../model/User.model');
+const UserDb = require('../db/helper/User.helper');
 const Response = require('../class/Response');
 const { decrypt } = require('../utils/bcrypt');
 const { CreateToken } = require('../utils/jwt');
@@ -112,7 +112,7 @@ module.exports = {
                     return response.status === 200;
                 }),
                 // Generate token
-                flatMap(result => Rx.of(CreateToken(result))),
+                flatMap((result) => Rx.of(CreateToken(result))),
             )
             .subscribe(
                 (result) => {

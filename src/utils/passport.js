@@ -1,6 +1,6 @@
 const passport = require('passport');
 const jwtStrategy = require('passport-jwt');
-const userModel = require('../model/User.model');
+const userModel = require('../db/helper/User.helper');
 
 const options = {};
 
@@ -17,7 +17,7 @@ passport
                 }
                 return done(null, false);
             })
-            .catch(err => done(err, false));
+            .catch((err) => done(err, false));
     }));
 
 passport

@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 const mongoose = require('mongoose');
-const { encrypt } = require('../utils/bcrypt');
+const { encrypt } = require('../../utils/bcrypt');
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -28,10 +28,4 @@ UserSchema.pre('save', function (next) {
 
 const user = mongoose.model('User', UserSchema);
 
-module.exports = {
-    Create: newData => user.create(newData),
-    FindOneById: id => user.findById(id),
-    Update: (id, newData) => user.findByIdAndUpdate(id, newData),
-    FindAll: params => user.find(params),
-    FindOne: query => user.findOne(query),
-};
+module.exports = user;

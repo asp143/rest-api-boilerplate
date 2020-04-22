@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
+const logger = require('../../logger/logger').log('MongoDb');
 
 const db = mongoose.connection;
 
 mongoose.connect(process.env.DB_HOST, { useNewUrlParser: true });
 
 db.once('open', () => {
-    console.log('db connected!');
+    logger.info('Connected to db!');
 });
 
 db.on('error', () => {
-    console.log('ERROR CONNECTING ON DB!');
+    logger.error('Error connecting to db');
 });

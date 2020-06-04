@@ -9,6 +9,7 @@ To provide a barebones Rest api with Express and Mongoose technology
 - [CORS](https://github.com/expressjs/cors#readme)
 - [Mongoose](https://mongoosejs.com/)
 - [Eslint](https://eslint.org/)
+- [Jest](https://jestjs.io/)
 - Password Encryption using [bcrypt](https://www.npmjs.com/package/bcrypt)
 - Task Automaton via [Gulp](https://gulpjs.com/)
 - Environment Varibles via [DotEnv](https://www.npmjs.com/package/dotenv)

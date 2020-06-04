@@ -1,4 +1,4 @@
-const logger = require('../../logger/logger').get('Response');
+const logger = require('../../logger/logger').log('Response');
 
 class Response {
     constructor() {

@@ -1,9 +1,5 @@
 const Rx = require('rxjs');
-const { flatMap, takeWhile } = require('rxjs/operators');
-const UserDb = require('../db/helper/User.helper');
-const Response = require('../class/Response');
-const { decrypt } = require('../utils/bcrypt');
-const { CreateToken } = require('../utils/jwt');
+const User = require('../function/User.function');
 
 /**
  * Add use cases
@@ -13,117 +9,80 @@ module.exports = {
      *  Create a new document
      */
     Create: (req, res) => {
-        const response = new Response();
         Rx
-            .from(UserDb.Create(req.body))
+            .from(User.Register(req.body))
             .subscribe(
                 (result) => {
-                    response.setPayload(result);
+                    res.status(result.status).json(result);
                 },
-                (err) => {
-                    response.setStatus(500).setSuccess(false).setPayload(err);
-                    res.status(response.status).json(response);
-                },
-                () => {
-                    res.status(response.status).json(response.toJson());
+                (error) => {
+                    res.status(500).json(error);
                 },
             );
     },
+
     /**
      * Find one user
      */
     FindOne: (req, res) => {
-        const response = new Response();
         Rx
-            .from(UserDb.FindOne(req.query))
+            .from(User.FindOne(req.body))
             .subscribe(
                 (result) => {
-                    response.setPayload(result);
+                    res.status(result.status).json(result);
                 },
-                (err) => {
-                    response.setStatus(500).setSuccess(false).setPayload(err);
-                    res.status(response.status).json(response);
-                },
-                () => {
-                    res.status(response.status).json(response.toJson());
+                (error) => {
+                    res.status(500).json(error);
                 },
             );
     },
+
     /**
      * Find one user
      */
     FindOneById: (req, res) => {
-        const response = new Response();
         Rx
-            .from(UserDb.FindOneById(req.params.id))
+            .from(User.FindOne(req.params.id))
             .subscribe(
                 (result) => {
-                    response.setPayload(result);
+                    res.status(result.status).json(result);
                 },
-                (err) => {
-                    response.setStatus(500).setSuccess(false).setPayload(err);
-                    res.status(response.status).json(response);
-                },
-                () => {
-                    res.status(response.status).json(response.toJson());
+                (error) => {
+                    res.status(500).json(error);
                 },
             );
     },
+
     /**
      * Find All user
      */
     FindAll: (req, res) => {
-        const response = new Response();
         Rx
-            .from(UserDb.FindAll(req.query))
+            .from(User.FindAll(req.query))
             .subscribe(
                 (result) => {
-                    response.setPayload(result);
+                    res.status(result.status).json(result);
                 },
-                (err) => {
-                    response.setStatus(500).setSuccess(false).setPayload(err);
-                    res.status(response.status).json(response);
-                },
-                () => {
-                    res.status(response.status).json(response.toJson());
+                (error) => {
+                    res.status(500).json(error);
                 },
             );
     },
+
     /**
      * Login
      */
     Login: (req, res) => {
-        const response = new Response();
+        const { email, password } = req.body;
+
         Rx
-            .from(UserDb.FindOne({ email: req.body.email }))
-            .pipe(
-                // First check if the account exist
-                takeWhile((userData) => {
-                    if (userData === null) {
-                        response.setStatus(404).setMsg('Account not found');
-                    }
-                    return userData !== null;
-                }),
-                // Check password
-                takeWhile((result) => {
-                    if (!decrypt(req.body.password, result.password)) {
-                        response.setStatus(401).setMsg('Invalid password');
-                    }
-                    return response.status === 200;
-                }),
-                // Generate token
-                flatMap((result) => Rx.of(CreateToken(result))),
-            )
+            .from(User.Login(email, password))
             .subscribe(
                 (result) => {
-                    response.setPayload({ token: result });
+                    res.status(result.status).json(result);
                 },
-                (err) => {
-                    response.setStatus(500).setSuccess(false).setPayload(err);
-                    res.status(response.status).json(response);
-                },
-                () => {
-                    res.status(response.status).json(response.toJson());
+                (error) => {
+                    res.status(500).json(error);
                 },
             );
     },

@@ -1,3 +1,5 @@
+const logger = require('../../logger/logger').log('Response');
+
 class Response {
     constructor() {
         this.status = 200;
@@ -40,6 +42,19 @@ class Response {
      */
     setPayload(payload) {
         this.payload = payload;
+        return this;
+    }
+
+    /**
+     *  Sets the status of the response into failed
+     * @param {number} status
+     * @param {string} error
+     */
+    setFailed(status, error) {
+        logger.error(`Error: ${error}`);
+        this.status = status;
+        this.success = false;
+        this.payload = status === 500 ? `Internal Server Error: ${error}` : error;
         return this;
     }
 

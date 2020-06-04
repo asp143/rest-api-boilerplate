@@ -6,7 +6,6 @@ module.exports = {
             // eslint-disable-next-line no-underscore-dangle
             _id: userData._id,
             email: userData.email,
-            password: userData.password,
         };
 
         const token = jwt

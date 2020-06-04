@@ -4,7 +4,7 @@
   "private": false,
   "scripts": {
     "start": "gulp",
-    "test": "echo No test"
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -29,7 +29,7 @@
     "eslint-plugin-import": "^2.20.2",
     "gulp": "^4.0.2",
     "gulp-nodemon": "^2.5.0",
-    "jest": "^25.2.3",
+    "jest": "^25.5.4",
     "nodemon": "^2.0.2",
     "require-dir": "^1.2.0"
   }

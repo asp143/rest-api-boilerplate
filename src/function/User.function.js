@@ -1,6 +1,3 @@
-/**
- * This is where we put all the use cases for the user model
- */
 const UserDb = require('../db/helper/User.helper');
 const Response = require('../class/Response');
 const logger = require('../../logger/logger').log('User Functions');
@@ -9,8 +6,14 @@ const logger = require('../../logger/logger').log('User Functions');
 const { decrypt } = require('../utils/bcrypt');
 const { CreateToken } = require('../utils/jwt');
 
+/**
+ * This is where we put all the use cases for the user model
+ */
 module.exports = {
 
+    /**
+     * Function for creating a new user
+     */
     Register: async (newUser) => {
         const response = new Response();
         try {
@@ -24,6 +27,10 @@ module.exports = {
             return response;
         }
     },
+
+    /**
+     * Function for logging in this will create a token
+     */
     Login: async (email, password) => {
         const response = new Response();
         logger.info(`logging in user with ${email}:${password}`);
@@ -48,6 +55,10 @@ module.exports = {
             return response;
         }
     },
+
+    /**
+     * Function on to find one user using a query
+     */
     FindOne: async (query) => {
         const response = new Response();
         try {
@@ -65,6 +76,10 @@ module.exports = {
             return response;
         }
     },
+
+    /**
+     * Function to find one by id
+     */
     FindOneById: async (id) => {
         const response = new Response();
         try {
@@ -81,6 +96,10 @@ module.exports = {
             return response;
         }
     },
+
+    /**
+     * Function to find all user using a query
+     */
     FindAll: async (query) => {
         const response = new Response();
         try {

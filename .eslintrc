@@ -1,5 +1,6 @@
 {
     "extends": "airbnb-base",
+    "plugins": ["jest"],
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "comma-spacing": "error",

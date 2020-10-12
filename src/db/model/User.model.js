@@ -17,7 +17,6 @@ const UserSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-// eslint-disable-next-line prefer-arrow-callback
 UserSchema.pre('save', function (next) {
     if (!this.isModified('password')) {
         return next();

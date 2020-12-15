@@ -42,7 +42,7 @@ module.exports = {
      */
     FindOneById: (req, res) => {
         Rx
-            .from(User.FindOne(req.params.id))
+            .from(User.FindOneById(req.params.id))
             .subscribe(
                 (result) => {
                     res.status(result.status).json(result);

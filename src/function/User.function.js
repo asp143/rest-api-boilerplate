@@ -19,7 +19,6 @@ module.exports = {
         try {
             logger.info('Creating a user..');
             const user = await UserDb.Create(newUser);
-
             response.setPayload(user);
             return response;
         } catch (error) {

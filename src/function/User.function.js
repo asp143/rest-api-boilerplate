@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 const UserDb = require('../db/helper/User.helper');
 const Response = require('../class/Response');
 const logger = require('../../logger/logger').log('User Functions');
@@ -5,16 +6,11 @@ const logger = require('../../logger/logger').log('User Functions');
 // Utils
 const { decrypt } = require('../utils/bcrypt');
 const { CreateToken } = require('../utils/jwt');
+const BaseFunction = require('./Base.function');
 
-/**
- * This is where we put all the use cases for the user model
- */
-module.exports = {
-
-    /**
-     * Function for creating a new user
-     */
-    Register: async (newUser) => {
+class UserFunction extends BaseFunction {
+    async Register(newUser) {
+        this.logger.info('Creating a user');
         const response = new Response();
         try {
             logger.info('Creating a user..');
@@ -25,14 +21,11 @@ module.exports = {
             response.setFailed(500, error);
             return response;
         }
-    },
+    }
 
-    /**
-     * Function for logging in this will create a token
-     */
-    Login: async (email, password) => {
+    async Login(email, password) {
         const response = new Response();
-        logger.info(`logging in user with ${email}:${password}`);
+        this.logger.info(`logging in user with ${email}:${password}`);
         try {
             const userFound = await UserDb.FindOne({ email });
 
@@ -53,12 +46,9 @@ module.exports = {
             response.setFailed(500, error);
             return response;
         }
-    },
+    }
 
-    /**
-     * Function on to find one user using a query
-     */
-    FindOne: async (query) => {
+    async FindOne(query) {
         const response = new Response();
         try {
             const userData = await UserDb.FindOne(query);
@@ -74,12 +64,9 @@ module.exports = {
             response.setFailed(500, error);
             return response;
         }
-    },
+    }
 
-    /**
-     * Function to find one by id
-     */
-    FindOneById: async (id) => {
+    async FindOneById(id) {
         const response = new Response();
         try {
             const userData = await UserDb.FindOneById(id);
@@ -94,12 +81,9 @@ module.exports = {
             response.setFailed(500, error);
             return response;
         }
-    },
+    }
 
-    /**
-     * Function to find all user using a query
-     */
-    FindAll: async (query) => {
+    async FindAll(query) {
         const response = new Response();
         try {
             const userData = await UserDb.FindAll(query);
@@ -116,4 +100,6 @@ module.exports = {
             return response;
         }
     },
-};
+}
+
+module.exports = UserFunction;

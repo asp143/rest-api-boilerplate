@@ -1,5 +1,5 @@
 const Rx = require('rxjs');
-const User = require('../function/User.function');
+const UserFunction = require('../function/User.function');
 
 /**
  * Add use cases
@@ -9,6 +9,8 @@ module.exports = {
      *  Create a new document
      */
     Create: (req, res) => {
+        const User = new UserFunction();
+
         Rx
             .from(User.Register(req.body))
             .subscribe(
@@ -25,6 +27,8 @@ module.exports = {
      * Find one user
      */
     FindOne: (req, res) => {
+        const User = new UserFunction();
+
         Rx
             .from(User.FindOne(req.body))
             .subscribe(
@@ -41,6 +45,8 @@ module.exports = {
      * Find one user
      */
     FindOneById: (req, res) => {
+        const User = new UserFunction();
+
         Rx
             .from(User.FindOneById(req.params.id))
             .subscribe(
@@ -57,6 +63,8 @@ module.exports = {
      * Find All user
      */
     FindAll: (req, res) => {
+        const User = new UserFunction();
+
         Rx
             .from(User.FindAll(req.query))
             .subscribe(
@@ -73,6 +81,8 @@ module.exports = {
      * Login
      */
     Login: (req, res) => {
+        const User = new UserFunction();
+
         const { email, password } = req.body;
 
         Rx
